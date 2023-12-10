@@ -30,8 +30,7 @@ const Home = () => {
       </div>
       <div className="w-[40%]">
       <div className="relative w-658 h-680 bg-[#EE82EE] right-20 rounded-b-[200px]">
-      {/* <div className="absolute top-1/2 left-0 right-0 bg-white  z-[0] h-2 transform -translate-y-1/2"></div>
-      <div className="absolute top-0 bottom-0 left-1/2 bg-white w-2 transform -translate-x-1/2"></div> */}
+      
         <img className="items-center z-[1000]" src={Landing} alt="Landing Image" />
       </div>
       </div>
