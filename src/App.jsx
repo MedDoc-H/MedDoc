@@ -7,8 +7,12 @@ import Dashboard from "./components/Pages/Dashboard/Dashboard";
 import SignIn from "./components/Auth/SignIn";
 import SignUp from "./components/Auth/SignUp";
 import Home from "./components/Pages/Home/Home";
+
 import Profile from "./components/Pages/Profile/Profile";
 import { useEffect, useState } from "react";
+
+import Health from "./components/Pages/Health-Report/Health-Report";
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -17,6 +21,7 @@ function App() {
   }, [isLoggedIn]);
 
   return (
+
     <AuthProvider>
       <div className="App">
         <Header />
@@ -27,10 +32,13 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} />
+                    <Route path="/health-report" element={<Health />} />
         </Routes>
         <Footer />
       </div>
     </AuthProvider>
+    <>
+   
   );
 }
 
