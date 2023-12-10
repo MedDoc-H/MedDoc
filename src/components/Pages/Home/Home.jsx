@@ -10,7 +10,7 @@ const Home = () => {
           Take Control Of Your Health
         </h1>
         <div className="flex items-center">
-          <hr className="w-[268px]" />
+          <hr className="w-[268px]"/>
           <p className=" text-[20px] w-[303px] ml-[23px]">
             Securely manage and share your medical information in one place
           </p>
@@ -23,13 +23,13 @@ const Home = () => {
           <Link to="/sign-up">
             <button className="flex items-center">
               <img src={buttonIcon} alt="" className="mr-2" />
-              Get Started
+             Sign Up
             </button>
           </Link>
         </div>
       </div>
       <div className="w-[40%]">
-      <div className="relative w-658 h-680 bg-[#EE82EE] right-20 rounded-b-[200px]">
+      <div className="relative w-[658px] h-[648px] bg-[#ee82ee] right-20 rounded-b-[200px]">
       {/* <div className="absolute top-1/2 left-0 right-0 bg-white  z-[0] h-2 transform -translate-y-1/2"></div>
       <div className="absolute top-0 bottom-0 left-1/2 bg-white w-2 transform -translate-x-1/2"></div> */}
         <img className="items-center z-[1000]" src={Landing} alt="Landing Image" />
