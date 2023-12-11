@@ -17,7 +17,7 @@ const SignUp = () => {
       localStorage.setItem("did", did);
       setDid(did);
     };
-    initWeb5();
+    initWeb5();a
     // Clean up the web5Instance when the component unmounts
     return () => {
       web5Instance = null;

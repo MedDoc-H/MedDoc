@@ -7,11 +7,12 @@ import Dashboard from "./components/Pages/Dashboard/Dashboard";
 import SignIn from "./components/Auth/SignIn";
 import SignUp from "./components/Auth/SignUp";
 import Home from "./components/Pages/Home/Home";
-
+import UpdateAllergy from "./components/Pages/Health-Report/update-allergy"
 import Profile from "./components/Pages/Profile/Profile";
 import { useEffect, useState } from "react";
 
 import Health from "./components/Pages/Health-Report/Health-Report";
+import ShareHealth from "./components/Pages/Health-Report/Share-Health";
 
 
 function App() {
@@ -32,14 +33,17 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} />
-                    <Route path="/health-report" element={<Health />} />
+          <Route path="/health-report" element={<Health />} />
+          <Route path="/update-allergy" element={<UpdateAllergy />} />
+          <Route path="/share" element={<ShareHealth />} />
+
         </Routes>
         <Footer />
       </div>
     </AuthProvider>
-    <>
+    
    
   );
-}
+};
 
 export default App;
