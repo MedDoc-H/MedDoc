@@ -11,7 +11,7 @@ export const Header = () => {
   return (
      <div>
       <div className="flex flex-col items-center justify-center">
-        <div className="flex p-[40px] justify-between w-full">
+        <div className="flex p-[15px] justify-between w-full">
           <div className="flex items-center">
             <img src={icon} alt="Logo" />
             <h1 className="ml-2">MedDoc</h1>
