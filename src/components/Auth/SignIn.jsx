@@ -5,20 +5,20 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import { Link } from "react-router-dom";
 
-const SignIn = () => {
-  const [did, setDid] = useState("");
-  const navigate = useNavigate();
-  const {login} = useAuth();
-  const handleInputChange = (e) => {
-    setDid(e.target.value);
-  };
+const SignIn = ({handleInputChange, did}) => {
 
+  const {login} = useAuth();
+  const navigate = useNavigate();
   const handleLogin = (e) => {
     e.preventDefault();
     const myDid = localStorage.getItem("did");
     if (myDid && myDid === did) {
       login();
       navigate("/profile");
+    }
+    else{
+      alert("Invalid DID");
+      
     }
   };
 
@@ -42,6 +42,7 @@ const SignIn = () => {
                 id="did"
                 className=" border-[1px] w-full outline-none  text-[#808080] px-[20px] border-[#E0E0E0]  bg-[#F6AEF6] rounded-[20px] h-[43px] mt-[10px] mb-[30px]"
                 value={did}
+                onFocus={() => setNoteValue("")}
                 onChange={handleInputChange}
               />
               <button  className="flex mx-auto">

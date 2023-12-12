@@ -1,25 +1,12 @@
-import {React, useState} from "react";
+import { React, useState } from "react";
 import buttonIcon from "../../../assets/buttonIcon.svg";
 import "./profile.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Profileimg from "../../../assets/profile.svg";
 
-const Profile = () => {
-  const [formData, setFormData] = useState({
-    fName: "",
-    providerName: "",
-    age: "",
-    bloodGroup: "",
-    gender: "",
-    heightWeight: "",
-    maritalStatus: "",
-    nextOfKin: "",
-    address: "",
-    relationshipOfKin: "",
-    telephone1: "",
-    telephone2: "",
-  });
-  const Navigate = useNavigate();
+const Profile = ({formData, setFormData, writeToDwn, constructDoc}) => {
+ 
+  const navigate = useNavigate();
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
@@ -27,17 +14,16 @@ const Profile = () => {
       [id]: value,
     }));
   };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Access all form data in the `formData` state
+    // create a json for formData
     console.log(formData);
-    Navigate("/dashboard");
-    // Add your logic to submit the form data
+    navigate("/dashboard");
   };
+
   return (
     <>
-      <div className="w-[90%] h-[822px] bg-[white] mx-[auto] my-[17px] rounded-[20px] flex p-[56px]">
+      <div className="w-[90%] h-[1075px] bg-[white] mx-[auto] my-[17px] rounded-[20px] flex p-[56px]">
         <div className="w-[20%] mx-[auto] content-center items-center mt-[57px]">
           <img src={Profileimg} alt="profile img" />
           <p className=" text-center mr-[34px] mt-[10px]">Insert photos</p>
@@ -50,7 +36,7 @@ const Profile = () => {
               <tbody className="">
                 <tr className="space-x-4">
                   <td>
-                    <label htmlFor="fName">Full Name</label>
+                    <label htmlFor="fName">First Name</label>
                     <br />
                     <input
                       className="p-[14px] text-[#3A3A3A]"
@@ -74,13 +60,13 @@ const Profile = () => {
                 </tr>
                 <tr className="space-x-4">
                   <td>
-                    <label htmlFor="age">Age</label>
+                    <label htmlFor="lName">Last Name</label>
                     <br />
                     <input
                       className="p-[14px] text-[#3A3A3A]"
                       type="age"
-                      id="age"
-                      value={formData.age}
+                      id="lName"
+                      value={formData.lName}
                       onChange={handleInputChange}
                     />
                   </td>
@@ -121,13 +107,13 @@ const Profile = () => {
                 </tr>
                 <tr className="space-x-4">
                   <td>
-                    <label htmlFor="maritalStatus">Marital Status</label>
+                    <label htmlFor="birthday">Birthday</label>
                     <br />
                     <input
                       className="p-[14px] text-[#3A3A3A]"
-                      type="text"
-                      id="maritalStatus"
-                      value={formData.maritalStatus}
+                      type="date"
+                      id="birthday"
+                      value={formData.birthday}
                       onChange={handleInputChange}
                     />
                   </td>
@@ -156,18 +142,67 @@ const Profile = () => {
                     />
                   </td>
                   <td>
-                    <label htmlFor="relationshipOfKin">
-                      Relationship of Kin
-                    </label>{" "}
+                    <label htmlFor="fName">First Name of Kin</label>
                     <br />
                     <input
                       className="p-[14px] text-[#3A3A3A]"
                       type="text"
-                      id="relationshipOfKin"
-                      value={formData.relationshipOfKin}
+                      id="fName"
+                      value={formData.Name}
                       onChange={handleInputChange}
                     />
                   </td>
+                  
+                </tr>
+                <tr className="space-x-4">
+                <td>
+                    <label htmlFor="maritalStatus">Marital Status</label>
+                    <br />
+                    <input
+                      className="p-[14px] text-[#3A3A3A]"
+                      type="text"
+                      id="maritalStatus"
+                      value={formData.maritalStatus}
+                      onChange={handleInputChange}
+                    />
+                  </td>
+                  <td>
+                    <label htmlFor="lName">Last Name of Kin</label>
+                    <br />
+                    <input
+                      className="p-[14px] text-[#3A3A3A]"
+                      type="age"
+                      id="lName"
+                      value={formData.lName}
+                      onChange={handleInputChange}
+                    />
+                  </td>
+                </tr>
+                <tr className="space-x-4">
+                
+                <td>
+                    <label htmlFor="lSpoken">language Spoken</label>
+                    <br />
+                    <input
+                      className="p-[14px] text-[#3A3A3A]"
+                      type="text"
+                      id="lSpoken"
+                      value={formData.lSpoken}
+                      onChange={handleInputChange}
+                    />
+                  </td>
+                  <td>
+                    <label htmlFor="address">Address</label>
+                    <br />
+                    <input
+                      className="p-[14px] text-[#3A3A3A]"
+                      type="text"
+                      id="address"
+                      value={formData.address}
+                      onChange={handleInputChange}
+                    />
+                  </td>
+                  
                 </tr>
                 <tr className="space-x-4">
                   <td>
@@ -195,11 +230,16 @@ const Profile = () => {
                 </tr>
               </tbody>
             </table>
-            <button className="flex mx-auto mt-[50px]  mb-[30.9px]">
-              <img src={buttonIcon} alt="" className="mr-2" />
-              <h2 className="text-[#fffff]">Submit</h2>
-            </button>
           </form>
+            <div className="flex justify-between mt-[65px] ml-[-80px] mr-[-30px]">
+            <Link to="/">
+            <p className="underline text-[#5B5BF3] font-bold text-[25px]">SignOut</p>
+            </Link>
+            <button className="flex">
+              <img src={buttonIcon} alt="" className="mr-2" />
+              <h2 onClick = {handleSubmit} className="text-[#fffff]">Submit</h2>
+            </button>
+            </div>
         </div>
       </div>
     </>

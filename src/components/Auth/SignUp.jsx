@@ -2,41 +2,8 @@ import { useState, useEffect } from "react";
 import bg from "../../assets/signupBg.png";
 import buttonIcon from "../../assets/buttonIcon.svg";
 import { Link } from "react-router-dom";
-import { Web5 } from "@web5/api/browser";
-const SignUp = () => {
-  const [web5, setWeb5] = useState(null);
-  const [did, setDid] = useState("");
-  let web5Instance = null;
-  useEffect(() => {
-    const initWeb5 = async () => {
-      const { web5, did } = await Web5.connect();
-      console.log(web5, did);
-      web5Instance = web5;
-      setWeb5(web5);
-      // set did to local storage
-      localStorage.setItem("did", did);
-      setDid(did);
-    };
-    initWeb5();a
-    // Clean up the web5Instance when the component unmounts
-    return () => {
-      web5Instance = null;
-    };
-  }, []); // Empty dependency array ensures that the effect runs only once
-  const copyDid = async () => {
-    if (navigator.clipboard) {
-      await navigator.clipboard.writeText(did);
-    }
-    alert("Copied to clipboard");
-  };
-  const handleSignUp = async () => {
-    if (web5Instance) {
-      const newDid = await web5Instance.did.generate();
-      setDid(newDid);
-      console.log(newDid);
-      alert("New DID generated");
-    }
-  };
+
+const SignUp = ({copyDid, handleSignUp}) => {
   return (
     <>
       <div
@@ -63,7 +30,10 @@ const SignUp = () => {
               onClick={copyDid}
             >
               Already generated, click{""}
-              <span className="underline text-[#5B5BF3] cursor-pointer">here</span> to Copy
+              <span className="underline text-[#5B5BF3] cursor-pointer">
+                here
+              </span>{" "}
+              to Copy
             </h1>
             <h2 className="text-[#3A3A3A]">
               Already have a DID?{" "}
