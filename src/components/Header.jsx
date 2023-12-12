@@ -17,8 +17,23 @@ export const Header = () => {
             <h1 className="ml-2">MedDoc</h1>
           </div>
           <div className="flex space-x-10 items-center">
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/Features">Features</NavLink>
+          {isLoggedIn ? (
+            <NavLink to="/dashboard">
+              Dashboard
+              </NavLink>
+            ) : (
+              <NavLink to="/">
+              Home
+              </NavLink>
+            )}
+            {isLoggedIn ? (
+            <NavLink to="/health-report">
+              My Health
+              </NavLink>
+            ) : (
+              <></>
+            )}
+            <NavLink to="/profile">Profile</NavLink>
             <NavLink to="/Blog">Blog</NavLink>
 
             {isLoggedIn ? (
