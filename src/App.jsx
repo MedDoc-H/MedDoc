@@ -13,6 +13,9 @@ import { useEffect, useState } from "react";
 import { Web5 } from '@web5/api/browser';
 import Health from "./components/Pages/Health-Report/Health-Report";
 import ShareHealth from "./components/Pages/Health-Report/Share-Health";
+import UpdateActivity from "./components/Pages/Health-Report/activities-update";
+import AboutUs from "./components/Pages/Home/About-Us";
+
 
 
 function App() {
@@ -301,6 +304,8 @@ function App() {
             <Route path="/health-report" element={<Health />} />
           <Route path="/update-allergy" element={<UpdateAllergy />} />
           <Route path="/share" element={<ShareHealth />} />
+          <Route path="/update-activities" element={<UpdateActivity />} />
+         <Route path="/about-us" element={<AboutUs />}/>
           </Routes>
           <Footer />
         </div>
