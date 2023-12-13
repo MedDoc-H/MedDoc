@@ -34,8 +34,9 @@ export const Header = () => {
               <></>
             )}
             <NavLink to="/profile">Profile</NavLink>
+              <NavLink to="/Blog">Blog</NavLink>
             <NavLink to="/Blog">Blog</NavLink>
-
+            
             {isLoggedIn ? (
               <button onClick={logout}>Logout</button>
             ) : (
