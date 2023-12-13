@@ -142,13 +142,13 @@ const Profile = ({formData, setFormData, writeToDwn, constructDoc}) => {
                     />
                   </td>
                   <td>
-                    <label htmlFor="fName">First Name of Kin</label>
+                    <label htmlFor="fNameK">First Name of Kin</label>
                     <br />
                     <input
                       className="p-[14px] text-[#3A3A3A]"
                       type="text"
-                      id="fName"
-                      value={formData.Name}
+                      id="fNameK"
+                      value={formData.fNameK}
                       onChange={handleInputChange}
                     />
                   </td>
@@ -167,13 +167,13 @@ const Profile = ({formData, setFormData, writeToDwn, constructDoc}) => {
                     />
                   </td>
                   <td>
-                    <label htmlFor="lName">Last Name of Kin</label>
+                    <label htmlFor="lNameK">Last Name of Kin</label>
                     <br />
                     <input
                       className="p-[14px] text-[#3A3A3A]"
                       type="age"
-                      id="lName"
-                      value={formData.lName}
+                      id="lNameK"
+                      value={formData.lNameK}
                       onChange={handleInputChange}
                     />
                   </td>
