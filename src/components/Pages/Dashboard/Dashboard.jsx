@@ -5,6 +5,9 @@ import { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import yearlyChart from "../../../assets/yearlyChart.svg";
+import notification from "../../../assets/notification.svg";
+import weekly from "../../../assets/weekly.svg"
+import health from "../../../assets/healthChart.svg"
 import "./Dashboard.css";
 
 const Dashboard = ({ formData }) => {
@@ -60,9 +63,9 @@ const Dashboard = ({ formData }) => {
         </div>
         <div
           onClick={handleNotification}
-          className="flex  font-bold text-[3a3a3a] text-[16px] mt-[50px] gap-[20px]"
+          className="flex font-bold text-[3a3a3a] text-[16px] mt-[50px] gap-[20px]"
         >
-          <img src="/profile.svg" alt="report" />
+          <img src={notification} alt="report" />
           <p>Notification</p>
         </div>
 
@@ -170,23 +173,29 @@ const Dashboard = ({ formData }) => {
               </div>
               <div className="mt-[111px] ml-[60px]">
                 <div className="bg-[white] w-[254px] rounded-[20px] h-[138px] mb-[30px]">
-                  <div className="flex justify-between p-[30px]">
-                    <p>Your Activity</p>
-                    <p>Weekly</p>
+                  <div className="flex  justify-between pt-[5px] px-[10px]">
+                    <p className=" font-bold z-[1]">Your Activity</p>
+                    <p className="font-bold z-[1]">Weekly</p>
                   </div>
+                  <div className="mt-[-25px]">
+                <img src={weekly} alt="yearly chart" />
+              </div>
                 </div>
-                <div className="bg-[white] w-[254px] rounded-[20px] h-[138px]">
-                  <p>General Health</p>
+                <div className="bg-[white] w-[254px] px-[10px] pt-[5px] rounded-[20px] h-[138px]">
+                  <p className="font-bold">General Health</p>
                 </div>
+                <div className=" px-[auto]">
+                <img  className="mx-[auto] mt-[-100px] px-[auto]" src={health} alt="yearly chart" />
+              </div>
               </div>
             </div>
             <div className="bg-[white] h-[391px] rounded-[20px] w-[629px] ">
-              <div className="flex justify-between p-[30px]">
-                <p>Your Activity</p>
-                <p>Yearly</p>
+              <div className="flex justify-between  p-[30px]">
+                <p className="font-bold">Your Activity</p>
+                <p className="font-bold">Yearly</p>
               </div>
-              <div className="">
-                <img src={yearlyChart} alt="yearly chart" />
+              <div className="mx-[auto] px-[auto]">
+                <img  className="mx-[auto] px-[auto]" src={yearlyChart} alt="yearly chart" />
               </div>
             </div>
           </div>
