@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { Web5 } from '@web5/api/browser';
 import Health from "./components/Pages/Health-Report/Health-Report";
 import ShareHealth from "./components/Pages/Health-Report/Share-Health";
+import Blog from "./components/Pages/Blog/Blog";
 
 
 function App() {
@@ -299,6 +300,7 @@ function App() {
             />
             <Route path="/dashboard" element={<Dashboard  formData={formData}/>} />
             <Route path="/health-report" element={<Health />} />
+            <Route path="/blog" element={<Blog />} />
           <Route path="/update-allergy" element={<UpdateAllergy />} />
           <Route path="/share" element={<ShareHealth />} />
           </Routes>
