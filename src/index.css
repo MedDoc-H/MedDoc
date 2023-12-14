@@ -2,12 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@500&display=swap');
+
 :root {
-  font-family: Merriweather Sans, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Merriweather Sans', Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
+  /* color-scheme: light dark; */
   color: rgba(255, 255, 255, 0.87);
   background-color: #000000;
 
@@ -15,6 +17,10 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.ft{
+  font-family: 'Merriweather Sans';
 }
 
 a {
@@ -51,7 +57,7 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
@@ -62,7 +68,9 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+
 }
+*/
 
 .border-blog-one{
   background-image: url(assets/shubham-s-web3-yKzECK-O9-k-unsplash.jpg);
@@ -96,4 +104,25 @@ button:focus-visible {
 .column-flex-three{
   border-bottom: 1px solid white;
   padding-bottom: 5px;
+}
+
+
+
+.btn-plus{
+  display: block;
+  position: absolute;
+  right: 0px;
+  top: -40px;
+  color: #000000;
+  background-color: transparent !important;
+  padding: 0px !important;
+  border-radius: 50%;
+}
+.btn-plus:hover{
+  border-color: transparent !important;
+}
+.vec{
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 20px;
 }
