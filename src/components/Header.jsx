@@ -7,9 +7,9 @@ import "../App.css";
 import { useAuth } from "./Auth/AuthContext";
 
 export const Header = () => {
-  const {login, logout, isLoggedIn} = useAuth();
+  const { login, logout, isLoggedIn } = useAuth();
   return (
-     <div>
+    <div>
       <div className="flex flex-col items-center justify-center">
         <div className="flex p-[15px] justify-between w-full">
           <div className="flex items-center">
@@ -17,24 +17,19 @@ export const Header = () => {
             <h1 className="ml-2">MedDoc</h1>
           </div>
           <div className="flex space-x-10 items-center">
-          {isLoggedIn ? (
-            <NavLink to="/dashboard">
-              Dashboard
-              </NavLink>
+            {isLoggedIn ? (
+              <NavLink to="/dashboard">Dashboard</NavLink>
             ) : (
-              <NavLink to="/">
-              Home
-              </NavLink>
+              <NavLink to="/">Home</NavLink>
             )}
             {isLoggedIn ? (
-            <NavLink to="/health-report">
-              My Health
-              </NavLink>
+              <NavLink to="/health-report">My Health</NavLink>
             ) : (
               <></>
             )}
+            {!isLoggedIn ? <NavLink to="/Blog">Blog</NavLink> : <></>}
+            {!isLoggedIn ? <NavLink to="/about">About Us</NavLink> : <></>}
             <NavLink to="/profile">Profile</NavLink>
-            <NavLink to="/Blog">Blog</NavLink>
 
             {isLoggedIn ? (
               <button onClick={logout}>Logout</button>
