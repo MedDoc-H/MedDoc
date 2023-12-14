@@ -4,16 +4,10 @@ import "./profile.css";
 import { Link, useNavigate } from "react-router-dom";
 import Profileimg from "../../../assets/profile.svg";
 
-const Profile = ({formData, setFormData, writeToDwn, constructDoc}) => {
+const Profile = ({formData, handleInputChange}) => {
  
   const navigate = useNavigate();
-  const handleInputChange = (e) => {
-    const { id, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [id]: value,
-    }));
-  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     // create a json for formData

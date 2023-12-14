@@ -3,13 +3,9 @@ import bg from "../../../assets/signupBg.png";
 import buttonIcon from "../../../assets/buttonIcon.svg";
 import { Link } from "react-router-dom";
 
-
-const UpdateAllergy = () => {
-    return (
-
-    
-
-        
+const UpdateAllergy = ({handleInputChange, allergyData}) => {
+  console.log(allergyData)
+    return (          
         <div
             className="flex flex-col z-0 w-[500px] h-[500px] my-[70px]  mx-auto  bg-no-repeat bg-center bg-cover text-white"
             style={{ backgroundImage: `url(${bg})` }}
@@ -30,8 +26,10 @@ const UpdateAllergy = () => {
               <input
                 type="text"
                 placeholder="Title"
-                id="did"
-                className=" border-[1px] w-full outline-[3px] border-[#EE82EE]  text-[#808080] px-[15px] border-[#E0E0E0]   rounded-[20px] h-[35px] mt-[5px] mb-[15px]"
+                id="new_allergy"
+                value={allergyData.new_allergy}
+                onChange={handleInputChange}
+                className=" border-[1px] w-full outline-[3px] border-[#EE82EE]  text-[#808080] px-[15px]   rounded-[20px] h-[35px] mt-[5px] mb-[15px]"
               />
 
                <label htmlFor="outcome" className="text-[13px]  text-[#3A3A3A] ">
@@ -41,8 +39,10 @@ const UpdateAllergy = () => {
               <input
                 type="text"
                 placeholder="Title"
-                id="did"
-                className=" border-[1px] w-full outline-[3px] border-[#EE82EE]  text-[#808080] px-[15px] border-[#E0E0E0]   rounded-[20px] h-[35px] mt-[5px] mb-[15px]"
+                id="outcome"
+                value={allergyData.outcome}
+                onChange={handleInputChange}
+                className=" border-[1px] w-full outline-[3px] border-[#EE82EE]  text-[#808080] px-[15px]   rounded-[20px] h-[35px] mt-[5px] mb-[15px]"
               />
 
                <label htmlFor="severity" className="text-[13px]  text-[#3A3A3A] ">
@@ -52,16 +52,19 @@ const UpdateAllergy = () => {
               <input
                 type="text"
                 placeholder="Title"
-                id="did"
-                className=" border-[1px] w-full outline-[3px] border-[#EE82EE]  text-[#808080] px-[15px] border-[#E0E0E0]   rounded-[20px] h-[35px] mt-[5px] mb-[30px]"
+                id="severity"
+                value={allergyData.severity}
+                onChange={handleInputChange}
+                className=" border-[1px] w-full outline-[3px] border-[#EE82EE]  text-[#808080] px-[15px]   rounded-[20px] h-[35px] mt-[5px] mb-[30px]"
               />
 
-              <button  className="flex mx-auto">
+              <Link to="/health-report">
+              <button 
+               className="flex mx-auto">
                 <img src={buttonIcon} alt="" className="mr-2" />
                 Update
               </button>
-           
-
+              </Link>
             </div>
             </div>
         </div>

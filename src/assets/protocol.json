@@ -1,0 +1,68 @@
+{
+  "protocol": "https://didcomm.org/shared-report",
+  "published": true,
+  "types": {
+    "allergy": {
+      "schema": "https://med-doc-sage.vercel.app/schemas/allergy.json",
+      "dataFormats": ["application/json"]
+    },
+    "activity": {
+      "schema": "https://med-doc-sage.vercel.app/schemas/activity.json",
+      "dataFormats": ["application/json"]
+    },
+    "report": {
+      "schema": "https://med-doc-sage.vercel.app/schemas/report.json",
+      "dataFormats": ["application/json"]
+    }
+  },
+  "structure": {
+    "allergy": {
+      "$actions": [
+        {
+          "who": "anyone",
+          "can": "read"
+        },
+        {
+          "who": "anyone",
+          "can": "write"
+        }
+      ]
+    },
+    "activity": {
+      "$actions": [
+        {
+          "who": "anyone",
+          "can": "read"
+        },
+        {
+          "who": "anyone",
+          "can": "write"
+        }
+      ]
+    },
+    "report": {
+      "$actions": [
+        {
+          "who": "author",
+          "of": "allergy",
+          "can": "write"
+        },
+        {
+          "who": "recipient",
+          "of": "allergy",
+          "can": "write"
+        },
+        {
+          "who": "author",
+          "of": "activity",
+          "can": "write"
+        },
+        {
+          "who": "recipient",
+          "of": "activity",
+          "can": "write"
+        }
+      ]
+    }
+  }
+}
