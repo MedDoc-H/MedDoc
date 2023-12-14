@@ -1,9 +1,12 @@
 import React from "react";
+import vectorSvg from "../../../assets/vector.svg"
+import addicon from "../../../assets/add-icon.png"
+import med from "../../../assets/medication.svg"
 
 const Health = () => {
     return (
         <div className="App">
-          <h1 className="text-center text-[30px] ">My Medical Report</h1>
+          <h1 className="text-center text-[30px] mt-3">My Medical Report</h1>
           <h2 className='text-[30px] ml-8'>Cobbs, Sarah</h2>
           <span className="leading-10 ml-8">Last Updated, November 28, 2023</span>
           <div className="grid grid-cols-3 gap-5 ml-8">
@@ -118,28 +121,34 @@ const Health = () => {
           </div>
     
           {/* Allergies Section */}
-          <div className='allergies flex bg-white text-black w-11/12 rounded-xl ml-8 mt-20'>
+          <div className='allergies w-11/12 ml-8 mt-28'>
+            <div className="w-full relative">
+              <button className="btn-plus">
+               <img src={addicon} className="w-[35px]" />
+              </button>
+            </div>
+           <div className="flex bg-white text-black rounded-xl">
             <div className='icon bg-pink-500 w-20 h-auto rounded-l-xl'></div>
             <div className='allergy-section-parent grid w-full '>
               <div className='allergy-section-grid-one inline-grid grid-cols-3 pl-5'>
               
-                <div className='first-grid'>
-                  <h3 className='text-xl font-bold'>Allergies</h3>
-                  <p>Nuts</p>
+                <div className='first-grid mt-3'>
+                  <h3 className='text-xl font-bold mb-3'>Allergies</h3>
+                  <p className="mb-2 text-[#EE82EE] text-[18px] font-bold">Nuts</p>
                 </div>
     
-                <div className='second-grid'>
-                  <h3 className='text-xl font-bold'>Outcomes</h3>
-                  <p>Skin Breakouts</p>
+                <div className='second-grid mt-3'>
+                  <h3 className='text-xl font-bold mb-3'>Outcomes</h3>
+                  <p className="font-bold mb-2">Skin Breakouts</p>
                 </div>
     
-                <div className='third-grid'>
-                  <h3 className='text-xl font-bold'>Severity</h3>
-                  <div className='allergy-severity inline-flex'>
-                    <div className='severity-none bg-pink-400 w-12 h-1'></div>
-                    <div className='severity-low bg-pink-700 w-12 h-1'></div>
-                    <div className='severity-moderate bg-yellow-600 w-12 h-1'></div>
-                    <div className='severity-severe bg-red-700 w-12 h-1'></div>
+                <div className='third-grid mt-3'>
+                  <h3 className='text-xl font-bold mb-4'>Severity</h3>
+                  <div className='allergy-severity inline-flex mb-10'>
+                    <div className='severity-none bg-pink-400 w-auto h-1 pr-2'>None</div>
+                    <div className='severity-low bg-pink-700 w-auto h-1 pr-2'>Low</div>
+                    <div className='severity-moderate bg-yellow-600 w-auto h-1 pr-2'>Moderate</div>
+                    <div className='severity-severe bg-red-700 w-auto h-1 pr-2'>Severe</div>
                   </div>     
       
                 </div>
@@ -148,19 +157,19 @@ const Health = () => {
               <div className='allergy-section-grid-two inline-grid grid-cols-3 pl-5'>
               
                 <div className='first-grid'>
-                  <p>Penicilin</p>
+                  <p className="mb-2 text-[#EE82EE] text-[18px] font-bold">Penicilin</p>
                 </div>
     
                 <div className='second-grid'>
-                  <p>Hives</p>
+                  <p className="font-bold mb-2">Hives</p>
                 </div>
     
                 <div className='third-grid'>
-                  <div className='allergy-severity inline-flex'>
-                    <div className='severity-none bg-pink-400 w-12 h-1'></div>
-                    <div className='severity-low bg-pink-700 w-12 h-1'></div>
-                    <div className='severity-moderate bg-yellow-600 w-12 h-1'></div>
-                    <div className='severity-severe bg-red-700 w-12 h-1'></div>
+                  <div className='allergy-severity inline-flex mb-10'>
+                    <div className='severity-none bg-pink-400 w-auto h-1 pr-2'>None</div>
+                    <div className='severity-low bg-pink-700 w-auto h-1 pr-2'>Low</div>
+                    <div className='severity-moderate bg-yellow-600 w-auto h-1 pr-2'>Moderate</div>
+                    <div className='severity-severe bg-red-700 w-auto h-1 pr-2'>Severe</div>
                   </div>     
       
                 </div>
@@ -170,26 +179,26 @@ const Health = () => {
               <div className='allergy-section-grid-three inline-grid grid-cols-3 pl-5'>
               
                 <div className='first-grid'>
-                  <p>Codeine</p>
+                  <p className="mb-2 text-[#EE82EE] text-[18px] font-bold">Codeine</p>
                 </div>
     
                 <div className='second-grid'>
-                  <p>Shortness of Breath</p>
+                  <p className="font-bold mb-2">Shortness of Breath</p>
                 </div>
     
                 <div className='third-grid'>
-                  <div className='allergy-severity inline-flex'>
-                    <div className='severity-none bg-pink-400 w-12 h-1'></div>
-                    <div className='severity-low bg-pink-700 w-12 h-1'></div>
-                    <div className='severity-moderate bg-yellow-600 w-12 h-1'></div>
-                    <div className='severity-severe bg-red-700 w-12 h-1'></div>
+                  <div className='allergy-severity inline-flex mb-10'>
+                    <div className='severity-none bg-pink-400 w-auto h-1 pr-3'>None</div>
+                    <div className='severity-low bg-pink-700 w-auto h-1 pr-2'>Low</div>
+                    <div className='severity-moderate bg-yellow-600 w-auto h-1 pr-2'>Moderate</div>
+                    <div className='severity-severe bg-red-700 w-auto h-1 pr-2'>Severe</div>
                   </div>     
       
                 </div>
     
               </div>
             </div>
-    
+           </div>
           </div>
     
           {/* Yearly Activities */}
@@ -202,20 +211,29 @@ const Health = () => {
     
           {/* Yearly Activities section */}
     
-          <div className='yearly-activities flex bg-white text-black w-11/12 rounded-xl ml-8 mt-20'>
-            <div className='icon bg-pink-500 w-20 h-auto rounded-l-xl'></div>
-            <div className='allergy-section-parent grid w-full '>
+          <div className='yearly-activities w-11/12  ml-8 mt-20'>
+            <div className="w-full relative">
+              <button className="btn-plus">
+               <img src={addicon} className="w-[35px]" />
+              </button>
+            </div>
+           <div className="flex rounded-xl bg-white text-black">
+            <div className='icon bg-pink-500 w-auto h-auto rounded-l-xl'>
+              <img src={med} className="w-[50px] vec" />
+              <h3 className="text-[16px] text-white font-bold mr-3 ml-3">Medication</h3>
+            </div>
+            <div className='allergy-section-parent grid w-full mb-5'>
               <div className='allergy-section-grid-one inline-grid grid-cols-3 pl-5'>
               
-                <div className='first-grid'>
-                  <h3 className='text-xl font-bold'>November 28, 2023</h3>
-                  <span> Acetaminophen with Codeine</span>
+                <div className='first-grid mt-3'>
+                  <h3 className='text-xl font-bold mb-3'>November 28, 2023</h3>
+                  <span className="text-[#EE82EE] mb-12 text-[18px] font-bold"> Acetaminophen with Codeine</span>
                 </div>
     
-                <div className='second-grid'>
+                <div className='second-grid mt-3'>
                   <span className='text-lg font-bold'>Liquid</span>
                   
-                  <div className='yearly-activities '>
+                  <div className='yearly-activities mt-3 mb-3'>
                     <b className='dose pr-4'>Dose</b>
                     <span className='dose-text'> 2 Spoonful </span>
                   </div>
@@ -227,8 +245,8 @@ const Health = () => {
     
                 </div>
     
-                <div className='second-grid'>
-                  <div className='yearly-activities '>
+                <div className='third-grid mt-3'>
+                  <div className='yearly-activities mb-3'>
                     <b className='instruction pr-4'>Instruction</b>
                     <span className='instruction-text'> 2 Spoonful twice a day </span>
                   </div>
@@ -244,23 +262,32 @@ const Health = () => {
               
     
             </div>
-    
+           </div>
           </div>
     
           {/* Yearly Activities section 2 */}
-    
-          <div className='yearly-activities flex bg-white text-black w-11/12 rounded-xl ml-8 mt-20'>
-            <div className='icon bg-pink-500 w-20 h-auto rounded-l-xl'></div>
+          
+          <div className='yearly-activities w-11/12 ml-8 mt-20'>
+            <div className="w-full relative">
+              <button className="btn-plus">
+               <img src={addicon} className="w-[35px]" />
+              </button>
+            </div>
+           <div className="flex bg-white text-black w-full rounded-xl"> 
+            <div className='icon bg-pink-500 w-auto h-auto rounded-l-xl'>
+              <img src={vectorSvg} className="w-[55px] vec" />
+              <h3 className="text-[16px] text-white font-bold mr-1 ml-1">Appointment</h3>
+            </div>
             <div className='yearly-activities-section-parent grid w-full'>
               <div className='yearly-activities-section-grid-one inline-grid grid-cols-2 pl-5'>
               
-                <div className='first-grid'>
-                  <h3 className='text-xl font-bold'>August 18, 2023</h3>
-                  <p>X-ray Examination</p>
+                <div className='first-grid mt-3'>
+                  <h3 className='text-xl font-bold mb-3'>August 18, 2023</h3>
+                  <p className="text-[#EE82EE] mb-12 text-[18px] font-bold">X-ray Examination</p>
                 </div>
     
-                <div className='second-grid'>
-                  <div className='yearly-activities '>
+                <div className='second-grid mt-3'>
+                  <div className='yearly-activities mb-3'>
                     <b className='provider pr-4'>Provider</b>
                     <span className='provider-text'> Dr. Felicia Parker </span>
                   </div>
@@ -274,23 +301,34 @@ const Health = () => {
               </div>
              
             </div>
-    
+           </div>
           </div>
     
           {/* Yearly Activities section 3 */}
     
-          <div className='yearly-activities flex bg-white text-black w-11/12 rounded-xl ml-8 mt-20'>
-            <div className='icon bg-pink-500 w-20 h-auto rounded-l-xl'></div>
+          <div className='yearly-activities bg-white text-black w-11/12 rounded-xl ml-8 mt-20 mb-8'>
+             <div className="w-full relative">
+               <button className="btn-plus">
+                 <img src={addicon} className="w-[35px]" />
+               </button>
+             </div>
+           <div className="flex bg-white text-black w-full rounded-xl">
+            <div className='icon bg-pink-500 w-auto h-auto rounded-l-xl'>
+              <div className='icon bg-pink-500 w-auto h-auto rounded-l-xl'>
+                <img src={vectorSvg} className="w-[55px] vec" />
+                <h3 className="text-[16px] text-white font-bold mr-1 ml-1">Appointment</h3>
+              </div>
+            </div>
             <div className='yearly-activities-section-parent grid w-full'>
               <div className='yearly-activities-section-grid-one inline-grid grid-cols-2 pl-5'>
               
-                <div className='first-grid'>
-                  <h3 className='text-xl font-bold'>October 11, 2023</h3>
-                  <p>Annual Physical Examination</p>
+                <div className='first-grid mt-3'>
+                  <h3 className='text-xl font-bold mb-3'>October 11, 2023</h3>
+                  <p className="text-[#EE82EE] mb-12 text-[18px] font-bold">Annual Physical Examination</p>
                 </div>
     
-                <div className='second-grid'>
-                  <div className='yearly-activities '>
+                <div className='second-grid mt-3'>
+                  <div className='yearly-activities mb-3'>
                     <b className='provider pr-4'>Provider</b>
                     <span className='provider-text'> Dr. John Momoh </span>
                   </div>
@@ -304,13 +342,23 @@ const Health = () => {
               </div>
              
             </div>
-    
+           </div>
           </div>
-    
+
+          {/* Download && Share btn */}
+          <div className="flex justify-between w-full mb-8">
+            <div className="flex-two">
+              <button className="ml-8">Download</button>
+            </div>
+
+            <div className="flex-two">
+              <button className="mr-20"> Share </button>
+            </div>
+          </div>
     
         </div>
         
       );
-};
+};  
 
 export default Health;
