@@ -4,10 +4,21 @@ import "./style.css";
 import { FaSearch } from "react-icons/fa";
 import buttonIcon from "../../../assets/buttonIcon.svg";
 import imgd from "../../../assets/Ellipse 6.png";
-
+import { Link, useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
+import { useAuth } from "../../Auth/AuthContext";
+import { useEffect } from "react";
 
 const ShareHealth = ({recipientDid, handleInputChange}) => {
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect   (() => {
+    if (!isLoggedIn) {
+      // If not logged in, redirect to sign-in page
+      navigate('/sign-in');
+    }
+  }, [isLoggedIn, navigate]);
   return (
     <>
       <div className="bg-white w-[1000px] rounded-[20px]  h-[722px] mx-auto my-[50px] ft">
@@ -133,10 +144,12 @@ const ShareHealth = ({recipientDid, handleInputChange}) => {
           </div>
         </div>
         <div className="flex  justify-end mr-[85px]">
+        <Link to = "/">
           <button className="flex  w-[120px] h-[45px] mt-[10px] items-end ">
             <img src={buttonIcon} alt="" className="mr-2 w-[20px] h-[20px]" />
             Done
           </button>
+          </Link>
         </div>
       </div>
     </>

@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import bg from "../../../assets/signupBg.png";
 import buttonIcon from "../../../assets/buttonIcon.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../Auth/AuthContext";
 
 const UpdateActivity = ({activitiesData, handleActivitiesInputChange }) => {
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      // If not logged in, redirect to sign-in page
+      navigate('/sign-in');
+    }
+  }, [isLoggedIn, navigate]);
   return (
     <div
       className="flex flex-col z-0 w-[600px] h-[830px] my-[70px]  mx-auto  bg-no-repeat bg-center bg-cover text-white"

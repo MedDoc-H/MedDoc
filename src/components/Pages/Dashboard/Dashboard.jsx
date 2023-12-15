@@ -1,7 +1,7 @@
 import profileE from "../../../assets/profileE.svg";
 import dashboard from "../../../assets/dashboard.svg";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import yearlyChart from "../../../assets/yearlyChart.svg";
@@ -9,11 +9,23 @@ import notification from "../../../assets/notification.svg";
 import weekly from "../../../assets/weekly.svg"
 import health from "../../../assets/healthChart.svg"
 import "./Dashboard.css";
+import { useAuth } from "../../Auth/AuthContext";
 
-const Dashboard = ({ formData }) => {
+const Dashboard = () => {
   const [showNotification, setShowNotification] = useState(false);
   const [date, setDate] = useState(new Date());
   const [showOverview, setShowOverview] = useState(true);
+
+  const formData = JSON.parse(localStorage.getItem("formData"));
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      // If not logged in, redirect to sign-in page
+      navigate('/sign-in');
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleNotification = () => {
     setShowNotification(true);
@@ -142,7 +154,7 @@ const Dashboard = ({ formData }) => {
                   alt="profile image"
                 />
                 <p className="font-bold text-[20px] text-center text-[3A3A3A] ">
-                  {formData.fName || "John Doe"}
+                  {formData.fName || "Sarah, Cobbs"}
                 </p>
                 <div className="flex justify-between px-[80px] w-[337px] ">
                   <div>

@@ -15,6 +15,9 @@ import Health from "./components/Pages/Health-Report/Health-Report";
 import ShareHealth from "./components/Pages/Health-Report/Share-Health";
 import UpdateActivities from "./components/Pages/Health-Report/activities-update";
 import protocolDef from "./assets/protocol.json";
+import Blog from "./components/Pages/Blog/Blog";
+import UpdateActivity from "./components/Pages/Health-Report/activities-update";
+import AboutUs from "./components/Pages/Home/About-Us";
 
 function App() {
   // const [web5, setWeb5] = useState(null);
@@ -29,24 +32,31 @@ function App() {
     }
   }, [web5, myDID]);
 
-  const [formData, setFormData] = useState({
-    fName: "",
-    fNameK: "",
-    providerName: "",
-    lName: "",
-    lNameK: "",
-    bloodGroup: "",
-    gender: "",
-    heightWeight: "",
-    birthday: "",
-    maritalStatus: "",
-    lSpoken: "",
-    nextOfKin: "",
-    address: "",
-    relationshipOfKin: "",
-    telephone1: "",
-    telephone2: "",
-  });
+  const storedFormDataString = localStorage.getItem("formData");
+const storedFormData = storedFormDataString ? JSON.parse(storedFormDataString) : {
+  fName: "",
+  fNameK: "",
+  providerName: "",
+  lName: "",
+  lNameK: "",
+  bloodGroup: "",
+  gender: "",
+  heightWeight: "",
+  birthday: "",
+  maritalStatus: "",
+  lSpoken: "",
+  nextOfKin: "",
+  address: "",
+  relationshipOfKin: "",
+  telephone1: "",
+  telephone2: "",
+};
+
+const [formData, setFormData] = useState(storedFormData);
+
+
+  // store formData in localstorage
+  localStorage.setItem("formData", JSON.stringify(formData));
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -147,10 +157,10 @@ function App() {
 
   // implementation to share
   const createShareReport = async () => {
-    recipientDid = recipientDid.RecDid;
+    recipientDids = recipientDid.RecDid;
     const sharedListData = {
       "@type": "list",
-      "tit"
+      // "tit"
 
     }
   };
@@ -198,6 +208,7 @@ function App() {
 
   return (
     <>
+
       <div className="App">
         <Header />
         <Routes>
@@ -223,7 +234,7 @@ function App() {
           />
           <Route
             path="/dashboard"
-            element={<Dashboard formData={formData} activitiesData={activitiesData} allergyData={allergyData} />}
+            element={<Dashboard  activitiesData={activitiesData} allergyData={allergyData} />}
           />
           <Route path="/health-report" element={<Health />} />
           <Route
@@ -244,6 +255,8 @@ function App() {
               />
             }
           />
+                      <Route path="/blog" element={<Blog />} />
+          <Route path="/about-us" element={<AboutUs />} />
           <Route path="/share"  element={<ShareHealth handleInputChange={handleRecipientDidChange} recipientDid={recipientDid} />} />
         </Routes>
         <Footer />
