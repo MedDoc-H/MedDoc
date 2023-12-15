@@ -4,10 +4,21 @@ import "./style.css";
 import { FaSearch } from "react-icons/fa";
 import buttonIcon from "../../../assets/buttonIcon.svg";
 import imgd from "../../../assets/Ellipse 6.png";
-
+import { Link, useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
+import { useAuth } from "../../Auth/AuthContext";
+import { useEffect } from "react";
 
-const ShareHealth = () => {
+const ShareHealth = ({recipientDid, handleInputChange}) => {
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect   (() => {
+    if (!isLoggedIn) {
+      // If not logged in, redirect to sign-in page
+      navigate('/sign-in');
+    }
+  }, [isLoggedIn, navigate]);
   return (
     <>
       <div className="bg-white w-[1000px] rounded-[20px]  h-[722px] mx-auto my-[50px] ft">
@@ -18,8 +29,8 @@ const ShareHealth = () => {
           </h1>
 
           <div className=" px-[40px] py-[5]">
-            <div className="bg-[#FDD7FD] w-full px-auto h-[50px] py-[5px] rounded-full flex flex-row justify-center justify-around space-between">
-              <div className="bg-[#FFFFFF] text-[black]  rounded-[20px] bg-[#FFFFFF] gap-[20px] text-[14px] w-[800px] items-center justify-center flex gap-[4px] text-bold">
+            <div className="bg-[#FDD7FD] w-full px-auto h-[50px] py-[5px] rounded-full flex flex-row justify-center  space-between">
+              <div className=" text-[black]  rounded-[20px] bg-[#FFFFFF]  text-[14px] w-[800px] items-center justify-center flex gap-[4px] text-bold">
                 {" "}
                 <MdGroupAdd className="mx[0px] style" /> Invite Others
               </div>
@@ -28,7 +39,7 @@ const ShareHealth = () => {
             <div className="flex  mt-[30px]">
               <form>
                 <div className="flex">
-                  <label class="relative block w-[700px]">
+                  <label htmlFor="RecDid" class="relative block w-[700px]">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-[70px]  outline-[12px]">
                       <FaSearch className="mt-[5px] " />
                     </span>
@@ -36,6 +47,10 @@ const ShareHealth = () => {
                       class="w-full bg-white placeholder:font-italitc border border-slate-30 border-[#FDD7FD] rounded-full py-2 pl-[100px] pr-4"
                       placeholder="Enter Recipient DID"
                       type="text"
+                      id="RecDid"
+                      name="recipientDid"
+                      value={recipientDid.RecDid}
+                      onChange={handleInputChange}
                     />
                   </label>
 
@@ -45,7 +60,7 @@ const ShareHealth = () => {
                       alt=""
                       className="mr-2 w-[20px] h-[20px]"
                     />
-                    Generate
+                    Invite
                   </button>
                 </div>
               </form>
@@ -127,6 +142,14 @@ const ShareHealth = () => {
               </tbody>
             </table>
           </div>
+        </div>
+        <div className="flex  justify-end mr-[85px]">
+        <Link to = "/">
+          <button className="flex  w-[120px] h-[45px] mt-[10px] items-end ">
+            <img src={buttonIcon} alt="" className="mr-2 w-[20px] h-[20px]" />
+            Done
+          </button>
+          </Link>
         </div>
       </div>
     </>

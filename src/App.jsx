@@ -2,170 +2,168 @@ import "./App.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Route, Routes, Router } from "react-router-dom";
-import { AuthProvider } from "./components/Auth/AuthContext";
+import { useAuth } from "./components/Auth/AuthContext";
 import Dashboard from "./components/Pages/Dashboard/Dashboard";
 import SignIn from "./components/Auth/SignIn";
 import SignUp from "./components/Auth/SignUp";
 import Home from "./components/Pages/Home/Home";
-import UpdateAllergy from "./components/Pages/Health-Report/update-allergy"
+import UpdateAllergy from "./components/Pages/Health-Report/update-allergy";
 import Profile from "./components/Pages/Profile/Profile";
 import { useEffect, useState } from "react";
-import { Web5 } from '@web5/api/browser';
+import { Web5 } from "@web5/api/browser";
 import Health from "./components/Pages/Health-Report/Health-Report";
 import ShareHealth from "./components/Pages/Health-Report/Share-Health";
+import UpdateActivities from "./components/Pages/Health-Report/activities-update";
+import protocolDef from "./assets/protocol.json";
 import Blog from "./components/Pages/Blog/Blog";
 import UpdateActivity from "./components/Pages/Health-Report/activities-update";
 import AboutUs from "./components/Pages/Home/About-Us";
 
-
 function App() {
-  const [web5, setWeb5] = useState(null);
+  // const [web5, setWeb5] = useState(null);
   const [did, setDid] = useState("");
-  const [recipientDid, setRecipientDid] = useState("");
-  const [activeRecipient, setActiveRecipient] = useState(null);
-  const [allReports, setAllReports] = useState([]);
-
-  const [formData, setFormData] = useState({
-    fName: "",
-    fNameK: "",
-    providerName: "",
-    lName: "",
-    lNameK: "",
-    bloodGroup: "",
-    gender: "",
-    heightWeight: "",
-    birthday:"",
-    maritalStatus: "",
-    lSpoken:"",
-    nextOfKin: "",
-    address: "",
-    relationshipOfKin: "",
-    telephone1: "",
-    telephone2: "",
-  });
-
-  console.log(formData);
-  let web5Instance = null;
-  useEffect(() => {
-    const initWeb5 = async () => {
-      const { web5, did } = await Web5.connect();
-      setWeb5(web5);
-      localStorage.setItem("did", did);
-      setDid(did);
-      if (web5 && did) {
-        await configureProtocol(web5, did);
-        await fetchDoc(web5, did);
-      }
-    };
-    initWeb5();
-    return () => {
-      web5Instance = null;
-    };
-  }, []);
+  const { isLoggedIn, login, logout, web5, myDID } = useAuth();
 
   useEffect(() => {
-    if (!web5 || !did) return;
-    const intervalId = setInterval(async () => {
-      await fetchDoc(web5, did);
-    }, 2000);
+    // You can now access web5 and myDID here
+    if (web5 && myDID) {
+      // Do something with web5 and myDID
+      console.log("Web5 and DID are available:", web5, myDID);
+    }
+  }, [web5, myDID]);
 
-    return () => clearInterval(intervalId);
-  }, [web5, did]);
+  const storedFormDataString = localStorage.getItem("formData");
+const storedFormData = storedFormDataString ? JSON.parse(storedFormDataString) : {
+  fName: "",
+  fNameK: "",
+  providerName: "",
+  lName: "",
+  lNameK: "",
+  bloodGroup: "",
+  gender: "",
+  heightWeight: "",
+  birthday: "",
+  maritalStatus: "",
+  lSpoken: "",
+  nextOfKin: "",
+  address: "",
+  relationshipOfKin: "",
+  telephone1: "",
+  telephone2: "",
+};
 
-  const createProtocolDefinition = () => {
-    const dingerProtocolDefinition = {
-      protocol: "https://medDoc.dev/medDoc-protocol",
-      published: true,
-      types: {
-        doc: {
-          schema: "https://medDoc.dev/medDoc",
-          dataFormats: ["application/json"],
-        },
-      },
-      structure: {
-        doc: {
-          $actions: [
-            { who: "anyone", can: "write" },
-            { who: "author", of: "ding", can: "read" },
-            { who: "recipient", of: "ding", can: "read" },
-          ],
-        },
-      },
-    };
-    return dingerProtocolDefinition;
+const [formData, setFormData] = useState(storedFormData);
+
+
+  // store formData in localstorage
+  localStorage.setItem("formData", JSON.stringify(formData));
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
   };
 
-  const queryForProtocol = async (web5) => {
-    return await web5.dwn.protocols.query({
+  
+  const [allergyData, setAllergyData] = useState({
+    new_allergy: "",
+    outcome: "",
+    severity: "",
+  });
+  
+  const handleAllergyInputChange = (e) => {
+    const { id, value } = e.target;
+    setAllergyData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+  };
+
+  const [activitiesData, setActivitiesData] = useState({
+    activity: "",
+    type: "",
+    date: "",
+    medication: "",
+    specify: "",
+    provider: "",
+    location: "",
+  });
+  console.log(activitiesData)
+
+
+  const handleActivitiesInputChange = (e) => {
+    const { id, value } = e.target;
+    setActivitiesData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+  }
+
+  const [recipientDid, setRecipientDid] = useState(
+    {
+      "RecDid": "",
+    }
+  );
+
+  const handleRecipientDidChange = (e) => {
+    const { id, value } = e.target;
+    setRecipientDid((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+  }
+
+  console.log(recipientDid)
+
+  const configureProtocol = async () => {
+    if (!web5) {
+      console.error("web5 not available");
+      return;
+    }
+
+    // query the list of existing protocols on the DWN
+    const { protocols, status } = await web5.dwn.protocols.query({
       message: {
         filter: {
-          protocol: "https://medDoc.dev/medDoc-protocol",
+          protocol: protocolDefinition.protocol,
         },
       },
     });
+
+    if (status.code !== 200) {
+      alert("Error querying protocols");
+      console.error("Error querying protocols", status);
+      return;
+    }
+
+    // if the protocol already exists, we return
+    if (protocols.length > 0) {
+      console.log("Protocol already exists");
+      return;
+    }
+
+    // configure protocol on local DWN
+    const { status: configureStatus, protocol } =
+      await web5.dwn.protocols.configure({
+        message: {
+          definition: protocolDefinition,
+        },
+      });
+
+    console.log("Protocol configured", configureStatus, protocol);
   };
 
-  const installProtocolLocally = async (web5, protocolDefinition) => {
-    return await web5.dwn.protocols.configure({
-      message: {
-        definition: protocolDefinition,
-      },
-    });
-  };
+  // implementation to share
+  const createShareReport = async () => {
+    recipientDids = recipientDid.RecDid;
+    const sharedListData = {
+      "@type": "list",
+      // "tit"
 
-  const configureProtocol = async (web5, did) => {
-    const protocolDefinition = await createProtocolDefinition();
-
-    const { protocols: localProtocol, status: localProtocolStatus } =
-      await queryForProtocol(web5);
-    console.log({ localProtocol, localProtocolStatus });
-    if (localProtocolStatus.code !== 200 || localProtocol.length === 0) {
-      const { protocol, status } = await installProtocolLocally(
-        web5,
-        protocolDefinition
-      );
-      console.log("Protocol installed locally", protocol, status);
-
-      const { status: configureRemoteStatus } = await protocol.send(did);
-      console.log(
-        "Did the protocol install on the remote DWN?",
-        configureRemoteStatus
-      );
-    } else {
-      console.log("Protocol already installed");
     }
   };
-
-  const constructDoc = () => {
-    const currentDate = new Date().toLocaleDateString();
-    const currentTime = new Date().toLocaleTimeString();
-    const Doc = {
-      sender: did,
-      data: formData,
-      recipient: recipientDid, //Note
-      timestampWritten: `${currentDate} ${currentTime}`,
-    };
-    return Doc;
-  };
-
-  const writeToDwn = async (Doc) => {
-    const { record } = await web5.dwn.records.write({
-      data: Doc,
-      message: {
-        protocol: "https://medDoc.dev/medDoc-protocol",
-        protocolPath: "Doc",
-        schema: "https://medDoc.dev/medDoc",
-        recipient: recipientDid,
-      },
-    });
-    return record;
-  };
-
-  const sendRecord = async (record) => {
-    return await record.send(recipientDid);
-  };
-
-  // implementation to share data to recipient DID here
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -193,124 +191,76 @@ function App() {
     alert("Copied to clipboard");
   };
 
-  const fetchSentDoc = async (web5, did) => {
-    const response = await web5.dwn.records.query({
-      message: {
-        filter: {
-          protocol: "https://medDoc.dev/medDoc-protocol",
-        },
-      },
-    });
-
-    if (response.status.code === 200) {
-      const sentDoc = await Promise.all(
-        response.records.map(async (record) => {
-          const data = await record.data.json();
-          return data;
-        })
-      );
-      console.log(sentDoc, "I sent these Doc");
-      return sentDoc;
-    } else {
-      console.log("error", response.status);
-    }
+ 
+  const handleSignInputChange = (event) => {
+    setDid(event.target.value);
   };
-
-  const fetchReceivedDoc = async (web5, did) => {
-    const response = await web5.dwn.records.query({
-      from: did,
-      message: {
-        filter: {
-          protocol: "https://medDoc.dev/medDoc-protocol",
-          schema: "https://medDoc.dev/medDoc",
-        },
-      },
-    });
-
-    if (response.status.code === 200) {
-      const recievedDoc = await Promise.all(
-        response.records.map(async (record) => {
-          const data = await record.data.json();
-          return data;
-        })
-      );
-      console.log(recievedDoc, "I received these Doc");
-      return recievedDoc;
-    } else {
-      console.log("error", response.status);
-    }
-  };
-
-  const fetchDoc = async (web5, did) => {
-    const sentMessages = await fetchSentDoc(web5, did);
-    const receivedMessages = await fetchReceivedDoc(web5, did);
-    const allMessages = [...(sentMessages || []), ...(receivedMessages || [])];
-    setAllReports(allMessages);
-  };
-
-  const handleSetActiveRecipient = (recipient) => {
-    setRecipientDid(recipient);
-    setActiveRecipient(recipient);
-  };
+  
+ 
 
   // generate new did
   const handleSignUp = async () => {
-    const { web5, did } = await Web5.connect();
-    setWeb5(web5);
-    localStorage.setItem("did", did);
-    setDid(did);
+    setDid(myDID);
+    localStorage.setItem("did", myDID);
     alert("DID generated");
+    console.log(myDID);
   };
-
-  const handleInputChange = (e) => {
-    setDid(e.target.value);
-  };
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  useEffect(() => {
-    setIsLoggedIn(localStorage.getItem("isLoggedIn"));
-  }, [isLoggedIn]);
 
   return (
     <>
-      <AuthProvider>
-        <div className="App">
-          <Header />
-          <Routes>
-            <Route path="*" element={<Home />} />
-            <Route path="/" element={<Home />} />
-            <Route
-              path="/sign-in"
-              element={
-                <SignIn handleInputChange={handleInputChange} did={did} />
-              }
-            />
-            <Route
-              path="/sign-up"
-              element={<SignUp handleSignUp={handleSignUp} copyDid={copyDid} />}
-            />
-            <Route
-              path="/profile"
-              element={
-                <Profile
-                  formData={formData}
-                  setFormData={setFormData}
-                  writeToDwn={writeToDwn}
-                  constructDoc={constructDoc}
-                />
-              }
-            />
-            <Route path="/dashboard" element={<Dashboard  formData={formData}/>} />
-            <Route path="/health-report" element={<Health />} />
-            <Route path="/blog" element={<Blog />} />
-          <Route path="/update-allergy" element={<UpdateAllergy />} />
-          <Route path="/share" element={<ShareHealth />} />
-          <Route path="/update-activities" element={<UpdateActivity />} />
-         <Route path="/about-us" element={<AboutUs />}/>
-          </Routes>
-          <Footer />
-        </div>
-      </AuthProvider>
+
+      <div className="App">
+        <Header />
+        <Routes>
+          <Route path="*" element={<Home />} />
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/sign-in"
+            element={<SignIn handleInputChange={handleSignInputChange} did={did} />}
+          />
+          <Route
+            path="/sign-up"
+            element={<SignUp handleSignUp={handleSignUp} copyDid={copyDid} />}
+          />
+          <Route
+            path="/profile"
+            element={
+              <Profile
+                formData={formData}
+                setFormData={setFormData}
+                handleInputChange={handleInputChange}
+              />
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={<Dashboard  activitiesData={activitiesData} allergyData={allergyData} />}
+          />
+          <Route path="/health-report" element={<Health />} />
+          <Route
+            path="/update-allergy"
+            element={
+              <UpdateAllergy
+                handleInputChange={handleAllergyInputChange}
+                allergyData={allergyData}
+              />
+            }
+          />
+           <Route
+            path="/update-activities"
+            element={
+              <UpdateActivities 
+              handleActivitiesInputChange={handleActivitiesInputChange}
+                activitiesData={activitiesData}
+              />
+            }
+          />
+                      <Route path="/blog" element={<Blog />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/share"  element={<ShareHealth handleInputChange={handleRecipientDidChange} recipientDid={recipientDid} />} />
+        </Routes>
+        <Footer />
+      </div>
     </>
   );
 }

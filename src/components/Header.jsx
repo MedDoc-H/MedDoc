@@ -28,8 +28,10 @@ export const Header = () => {
               <></>
             )}
             {!isLoggedIn ? <NavLink to="/Blog">Blog</NavLink> : <></>}
-            {!isLoggedIn ? <NavLink to="/about">About Us</NavLink> : <></>}
-            <NavLink to="/profile">Profile</NavLink>
+            {!isLoggedIn ? <NavLink to="/about-us">About Us</NavLink> : <></>}
+            {isLoggedIn ?   <NavLink to="/profile">Profile</NavLink> : <></>}
+
+          
 
             {isLoggedIn ? (
               <button onClick={logout}>Logout</button>

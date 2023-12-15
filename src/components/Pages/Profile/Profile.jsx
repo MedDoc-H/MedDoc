@@ -1,19 +1,21 @@
-import { React, useState } from "react";
+import { React, useEffect } from "react";
 import buttonIcon from "../../../assets/buttonIcon.svg";
 import "./profile.css";
 import { Link, useNavigate } from "react-router-dom";
 import Profileimg from "../../../assets/profile.svg";
+import { useAuth } from "../../Auth/AuthContext";
 
-const Profile = ({formData, setFormData, writeToDwn, constructDoc}) => {
- 
+const Profile = ({formData, handleInputChange}) => {
+  const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
-  const handleInputChange = (e) => {
-    const { id, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [id]: value,
-    }));
-  };
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      // If not logged in, redirect to sign-in page
+      navigate('/sign-in');
+    }
+  }, [isLoggedIn, navigate]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     // create a json for formData
